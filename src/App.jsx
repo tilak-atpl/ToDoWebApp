@@ -18,6 +18,7 @@ const App = () => {
   const deploymentTasks = [
     'Deployed on aws😄',
     'Deployed with docker image😄😎😎😎',
+    'Pulling Updates and Restarting😄 is working😝😝😝',
   ];
   return (
     <div className="App">
