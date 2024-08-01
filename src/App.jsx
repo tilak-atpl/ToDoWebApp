@@ -15,12 +15,21 @@ const App = () => {
     const newTodos = todos.filter(todo => todo.id !== id);
     setTodos(newTodos);
   };
-
+  const deploymentTasks = [
+    'Deployed on aws😄',
+    'Deployed with docker image😄😎😎😎',
+  ];
   return (
     <div className="App">
-      <h1>To-Do List</h1>
+      <h1 style={{color:"black"}}>To-Do List</h1>
       <TodoForm addTodo={addTodo} />
       <TodoList todos={todos} removeTodo={removeTodo} />
+
+      <ul style={{ color: 'black' }}>
+        {deploymentTasks.map((task, index) => (
+          <li key={index}>{`${index + 1}. ${task}`}</li>
+        ))}
+      </ul>
     </div>
   );
 };
