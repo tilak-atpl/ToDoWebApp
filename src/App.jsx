@@ -19,6 +19,7 @@ const App = () => {
     'Deployed on aws😄',
     'Deployed with docker image😄😎😎😎',
     'Pulling Updates and Restarting😄 is working😝😝😝',
+    'Pulling Updates and Restarting😄😝 the docker container😝😝',
   ];
   return (
     <div className="App">
