@@ -1,6 +1,6 @@
 DockerfileCopy code
 # Use the official Node.js image as the base image
-FROM node:14
+FROM node:18
 
 # Set the working directory
 WORKDIR /usr/src/app
