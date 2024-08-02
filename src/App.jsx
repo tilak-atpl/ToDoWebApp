@@ -20,6 +20,7 @@ const App = () => {
     'Deployed with docker image😄😎😎😎',
     'Pulling Updates and Restarting😄 is working😝😝😝',
     'Pulling Updates and Restarting😄😝 the docker container😝😝',
+    'Trying CI/CD with Jenkins hopefully. it will work🙏🙏🙏',
   ];
   return (
     <div className="App">
