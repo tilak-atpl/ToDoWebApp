@@ -7,4 +7,4 @@ docker stop todo-app || true
 docker rm todo-app || true
 
 # Run the new container
-docker run -d --name todo-app -p 80:80 tilak717/todo-app:latest
+docker run -d --name todo-app -p 80:80 tilak717/todo-app:$CIRCLE_SHA1
