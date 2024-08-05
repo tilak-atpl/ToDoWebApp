@@ -1,9 +1,13 @@
 version: 2.1
 
-jobs:
-  build:
+executors:
+  node-executor:
     docker:
       - image: circleci/node:14
+
+jobs:
+  build:
+    executor: node-executor
     steps:
       - checkout
       - setup_remote_docker:
@@ -19,7 +23,7 @@ jobs:
           command: docker build -t todo-app .
       - run:
           name: Login to Docker Hub
-          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+          command: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - run:
           name: Push Docker image
           command: docker tag todo-app $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1 && docker push $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1
@@ -29,6 +33,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
+            echo "Running deploy script on EC2"
             scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa deploy.sh ubuntu@ec2-3-110-183-35.ap-south-1.compute.amazonaws.com:~/
             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@ec2-3-110-183-35.ap-south-1.compute.amazonaws.com 'bash ~/deploy.sh'
 
