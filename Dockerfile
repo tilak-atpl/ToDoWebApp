@@ -1,9 +1,8 @@
- 
-# Use the official Node.js image as the base image
-FROM node:18
+# Use an official node image as a base
+FROM node:18-alpine
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -17,12 +16,8 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Install serve to serve the app
-RUN npm install -g serve
-
-# Expose the port
+# Expose port 3000
 EXPOSE 3000
 
-# Command to run the app
-CMD ["serve", "-s", "dist"]
-
+# Start the application
+CMD ["npm", "run", "preview"]
