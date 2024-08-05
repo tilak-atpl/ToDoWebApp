@@ -1,6 +1,10 @@
-#!/bin/bash
-docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-docker pull $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1
+# Example deploy.sh
+# Pull the latest Docker image
+docker pull tilak717/todo-app:latest
+
+# Stop and remove existing container
 docker stop todo-app || true
 docker rm todo-app || true
-docker run -d -p 80:3000 --name todo-app $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1
+
+# Run the new container
+docker run -d --name todo-app -p 80:80 tilak717/todo-app:latest
