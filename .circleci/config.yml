@@ -29,8 +29,8 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa deploy.sh ubuntu@ec2-3-110-183-35.ap-south-1.compute.amazonaws.com:~/
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@ec2-3-110-183-35.ap-south-1.compute.amazonaws.com 'bash ~/deploy.sh'
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa deploy.sh ec2-3-110-183-35.ap-south-1.compute.amazonaws.com:~/
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-3-110-183-35.ap-south-1.compute.amazonaws.coms 'bash ~/deploy.sh'
 
 workflows:
   version: 2
