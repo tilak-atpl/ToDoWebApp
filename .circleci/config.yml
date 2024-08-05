@@ -23,10 +23,14 @@ jobs:
       - run:
           name: Push Docker image
           command: docker tag todo-app $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1 && docker push $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1
+      - add_ssh_keys:
+          fingerprints:
+            - "your-ssh-key-fingerprint"  # Replace with the fingerprint of your SSH key
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no -i /path/to/react-web.pem ubuntu@your-ec2-public-dns 'bash -s' < deploy.sh
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa deploy.sh ubuntu@your-ec2-public-dns:~/
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@your-ec2-public-dns 'bash ~/deploy.sh'
 
 workflows:
   version: 2
