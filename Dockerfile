@@ -1,8 +1,8 @@
-# Use an official node image as a base
-FROM node:14-alpine
+# Use the official Node.js image (latest LTS version)
+FROM node:16
 
-# Set the working directory
-WORKDIR /app
+# Create and change to the app directory
+WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -10,14 +10,11 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application files
 COPY . .
 
-# Build the application
-RUN npm run build
-
-# Expose port 3000
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "run", "preview"]
+# Run the application
+CMD ["npm", "start"]
