@@ -29,7 +29,8 @@ jobs:
           command: docker tag todo-app $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1 && docker push $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1
       - add_ssh_keys:
           fingerprints:
-            - "B9:BD:69:6A:53:73:D9:4B:4B:72:6D:6C:18:5D:75:A6:A9:0E:B8:B9:F2:66:80:24:99:F7:CF:1D:A9:7A:5B:DF"  # Replace with the actual SHA256 fingerprint
+            - "SHA1:B0:E6:59:83:C7:0B:8F:0C:B4:51:3E:5B:0C:EB:03:8D:DC:B7:43:B0"
+            - "SHA256:B9:BD:69:6A:53:73:D9:4B:4B:72:6D:6C:18:5D:75:A6:A9:0E:B8:B9:F2:66:80:24:99:F7:CF:1D:A9:7A:5B:DF"  # Replace with the actual SHA256 fingerprint
       - run:
           name: Deploy to EC2
           command: |
