@@ -25,12 +25,12 @@ jobs:
           command: docker tag todo-app $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1 && docker push $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1
       - add_ssh_keys:
           fingerprints:
-            - "your-ssh-key-fingerprint"  # Replace with the fingerprint of your SSH key
+            - "B9 BD 69 6A 53 73 D9 4B 4B 72 6D 6C 18 5D 75 A6 A9 0E B8 B9 F2 66 80 24 99 F7 CF 1D A9 7A 5B DF"  # Replace with the actual SHA256 fingerprint
       - run:
           name: Deploy to EC2
           command: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa deploy.sh ec2-3-110-183-35.ap-south-1.compute.amazonaws.com:~/
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-3-110-183-35.ap-south-1.compute.amazonaws.coms 'bash ~/deploy.sh'
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/react-web.pem deploy.sh ec2-3-110-183-35.ap-south-1.compute.amazonaws.com:~/
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/react-web.pem ec2-3-110-183-35.ap-south-1.compute.amazonaws.com 'bash ~/deploy.sh'
 
 workflows:
   version: 2
