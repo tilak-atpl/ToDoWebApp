@@ -29,8 +29,8 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/react-web.pem deploy.sh ec2-3-110-183-35.ap-south-1.compute.amazonaws.com:~/
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/react-web.pem ec2-3-110-183-35.ap-south-1.compute.amazonaws.com 'bash ~/deploy.sh'
+            scp -o StrictHostKeyChecking=no -i ~/./react-web.pem deploy.sh ec2-3-110-183-35.ap-south-1.compute.amazonaws.com:~/
+            ssh -o StrictHostKeyChecking=no -i ~/./react-web.pem ec2-3-110-183-35.ap-south-1.compute.amazonaws.com 'bash ~/deploy.sh'
 
 workflows:
   version: 2
