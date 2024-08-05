@@ -1,42 +1,34 @@
 version: 2.1
 
-executors:
-  node-executor:
-    docker:
-      - image: circleci/node:14
-
 jobs:
   build:
-    executor: node-executor
+    docker:
+      - image: circleci/node:14
     steps:
       - checkout
       - setup_remote_docker:
           version: 20.10.7
       - run:
           name: Install dependencies
-          command: npm install
+          command: yarn install
       - run:
-          name: Build the application
-          command: npm run build
+          name: Run tests
+          command: yarn test
       - run:
           name: Build Docker image
-          command: docker build -t todo-app .
+          command: docker build -t $DOCKERHUB_USERNAME/todoproject:latest .
       - run:
-          name: Login to Docker Hub
-          command: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-      - run:
-          name: Push Docker image
-          command: docker tag todo-app $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1 && docker push $DOCKERHUB_USERNAME/todo-app:$CIRCLE_SHA1
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA1:B0:E6:59:83:C7:0B:8F:0C:B4:51:3E:5B:0C:EB:03:8D:DC:B7:43:B0"
-            - "SHA256:B9:BD:69:6A:53:73:D9:4B:4B:72:6D:6C:18:5D:75:A6:A9:0E:B8:B9:F2:66:80:24:99:F7:CF:1D:A9:7A:5B:DF"  # Replace with the actual SHA256 fingerprint
+          name: Push Docker image to Docker Hub
+          command: |
+            echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+            docker push $DOCKERHUB_USERNAME/todoproject:latest
       - run:
           name: Deploy to EC2
           command: |
-            echo "Running deploy script on EC2"
-            scp -o StrictHostKeyChecking=no -i ~/  deploy.sh ubuntu@ec2-3-110-183-35.ap-south-1.compute.amazonaws.com:~/
-            ssh -o StrictHostKeyChecking=no -i ~/ ubuntu@ec2-3-110-183-35.ap-south-1.compute.amazonaws.com 'bash ~/deploy.sh'
+            ssh -o StrictHostKeyChecking=no -i /home/circleci/.ssh/my-key.pem ec2-user@3.110.183.35 << EOF
+              docker pull $DOCKERHUB_USERNAME/todoproject:latest
+              docker run -d -p 80:3000 $DOCKERHUB_USERNAME/todoproject:latest
+            EOF
 
 workflows:
   version: 2
