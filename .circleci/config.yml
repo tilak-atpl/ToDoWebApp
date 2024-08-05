@@ -9,6 +9,11 @@ jobs:
       - setup_remote_docker:
           version: 20.10.7
       - run:
+          name: Decode and Save SSH Key
+          command: |
+            echo $ENCODED_SSH_KEY | base64 --decode > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+      - run:
           name: Install dependencies
           command: npm install
       - run:
@@ -25,11 +30,11 @@ jobs:
       - run:
           name: Debug SSH Connection
           command: |
-            ssh -o StrictHostKeyChecking=no -i $EC2_KEY $EC2_USER@$EC2_HOST echo "SSH connection successful"
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $EC2_USER@$EC2_HOST echo "SSH connection successful"
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no -i $EC2_KEY $EC2_USER@$EC2_HOST \
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $EC2_USER@$EC2_HOST \
             "docker pull $DOCKERHUB_USERNAME/todoproject:latest && \
             docker run -d -p 80:3000 $DOCKERHUB_USERNAME/todoproject:latest"
 
