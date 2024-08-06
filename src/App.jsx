@@ -22,6 +22,7 @@ const App = () => {
     'Pulling Updates and Restarting😄😝 the docker container😝😝',
     'Trying CI/CD with Jenkins hopefully. it will work🙏🙏🙏',
     'Integrating CircleCI.....deployment not working, testing over aws ec2 instance',
+    "First CI/CD pipeline setup done😛😛😛😛 🤟🤟🤟🤟🤟🤟🤟😝😝😝😝😝😝😝😝🤟🤟🤟🤟🤟🤟🤟",
   ];
   return (
     <div className="App">
