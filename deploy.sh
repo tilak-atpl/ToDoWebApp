@@ -8,3 +8,6 @@
 
 # # Run the new container
 # docker run -d --name todo-app -p 80:80 tilak717/todo-app:$CIRCLE_SHA1
+
+
+#No Need these command as config.yml contains this step,push and run the container
