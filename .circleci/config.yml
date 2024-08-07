@@ -34,9 +34,12 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $EC2_USER@$EC2_HOST \
-            "docker pull $DOCKERHUB_USERNAME/todoproject:latest && \
-            docker run -d -p 3000:3000 $DOCKERHUB_USERNAME/todoproject:latest"
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $EC2_USER@$EC2_HOST << 'EOF'
+              docker stop todoproject || true
+              docker rm todoproject || true
+              docker pull $DOCKERHUB_USERNAME/todoproject:latest
+              docker run -d --name todoproject -p 3000:3000 $DOCKERHUB_USERNAME/todoproject:latest
+            EOF
 
 workflows:
   version: 2
