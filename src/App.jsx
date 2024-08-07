@@ -24,6 +24,7 @@ const App = () => {
     'Integrating CircleCI.....deployment not working, testing over aws ec2 instance',
     "First CI/CD pipeline setup done😛😛😛😛 🤟🤟🤟🤟🤟🤟🤟😝😝😝😝😝😝😝😝🤟🤟🤟🤟🤟🤟🤟",
     "After first depyloyment: stop/delete current running container😛------->push the chagnes to repo to main/delvelop branch----->repeat🤟🤟🤟🤟😝😝",
+    "Stop and Remove the Existing Docker Container making it totally automated🤟",
   ];
   return (
     <div className="App">
