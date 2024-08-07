@@ -32,10 +32,10 @@ jobs:
           command: |
             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $EC2_USER@$EC2_HOST echo "SSH connection successful"
       - run:
-          name: Stop Existing Container
+          name: Stop and Remove Existing Container
           command: |
             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $EC2_USER@$EC2_HOST \
-            "docker stop todoproject || true && docker rm todoproject || true"
+            "docker ps -q --filter 'name=todoproject' | grep -q . && docker stop todoproject && docker rm todoproject || true"
       - run:
           name: Deploy to EC2
           command: |
